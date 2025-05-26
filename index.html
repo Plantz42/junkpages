@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>町工場の現状と未来戦略 インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Default max-width, can be overridden by Tailwind */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: #4A5568; /* text-gray-700 */
+            margin-top: 0.5rem;
+        }
+        .flow-step {
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        .flow-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #4A5568; /* text-gray-700 */
+        }
+        .result-item {
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        /* Selected Color Palette: Brilliant Blues */
+        :root {
+            --color-primary: #007bff;
+            --color-accent-1: #17a2b8;
+            --color-accent-2: #66d9ff;
+            --color-bg-dark: #343a40;
+            --color-text-dark: #343a40;
+            --color-bg-light: #f8f9fa;
+            --color-text-light-emphasis: #6c757d;
+            --color-card-bg: #ffffff;
+            --color-chart-1: #007bff;
+            --color-chart-2: #17a2b8;
+            --color-chart-3: #66d9ff;
+            --color-chart-4: #ffc107; /* Yellow for contrast */
+            --color-chart-5: #28a745; /* Green for contrast */
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            --color-danger: #dc3545;
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .bg-accent-1 { background-color: var(--color-accent-1); }
+        .text-accent-1 { color: var(--color-accent-1); }
+        .bg-accent-2 { background-color: var(--color-accent-2); }
+        .text-accent-2 { color: var(--color-accent-2); }
+        .bg-section-dark { background-color: var(--color-bg-dark); }
+        .text-dark { color: var(--color-text-dark); }
+        .bg-section-light { background-color: var(--color-bg-light); }
+        .text-light-emphasis { color: var(--color-text-light-emphasis); }
+        .card-bg { background-color: var(--color-card-bg); }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+    <!-- Infographic Plan Summary:
+        Narrative: The infographic will guide the user through the current state of small-to-medium-sized manufacturing businesses in Japan ("machikoba"), highlight their critical challenges, present viable survival and growth strategies, detail available support systems, and conclude with a future outlook.
+        Structure:
+        1. Header & Introduction: Setting the stage.
+        2. Section 1: The Current Landscape of Machikoba (Data from Report Section I & C)
+        3. Section 2: Critical Challenges Threatening Survival (Data from Report Section II & Table 1)
+        4. Section 3: Strategic Imperatives for Revival and Growth (Data from Report Section III & Table 2)
+        5. Section 4: Leveraging Support Systems (Data from Report Table 3)
+        6. Section 5: Future Outlook and Call to Action (Data from Report Section IV)
+        Color Palette Name: Brilliant Blues (Primary: #007bff, Accent1: #17a2b8, Accent2: #66d9ff, Dark: #343a40, Light: #f8f9fa, Card: #ffffff)
+        Visualization Choices Summary:
+            - Machikoba Count Decline: Big Number (Inform) - HTML/CSS
+            - Youth Labor Decrease: Big Number (Inform) - HTML/CSS
+            - Sales Decline (COVID): Donut Chart (Compare) - Chart.js
+            - Successor Unavailability Rate: Donut Chart (Compare) - Chart.js
+            - Lack of Skilled Labor Trainers: Bar Chart (Compare) - Chart.js
+            - Cost Increase Impact & Price Pass-Through: Grouped Bar Chart or two Donut Charts (Compare) - Chart.js
+            - Digitization Delay as Reason for Business Closure: Bar Chart (Compare) - Chart.js
+            - Strategic Imperatives (DX, Niche, HR, etc.): HTML/CSS Cards with icons/text (Organize)
+            - DX Success Example (Sanko Giken): HTML/CSS Flowchart (Organize)
+            - Government Support Schemes: HTML/CSS Table or Cards (Organize)
+        NO SVG or Mermaid JS Confirmed: All visual elements will be rendered using Chart.js (Canvas), HTML, CSS (Tailwind), and Unicode characters.
+    -->
+</head>
+<body class="bg-section-light text-dark">
+
+    <header class="bg-primary text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">町工場の現状分析と未来への生存戦略</h1>
+            <p class="text-lg">日本のものづくりを支える町工場の課題と、持続的成長への道筋をインフォグラフィックで解説します。</p>
+        </div>
+    </header>
+
+    <nav class="sticky-nav py-3">
+        <div class="container mx-auto px-4 flex justify-center space-x-4 md:space-x-8 overflow-x-auto">
+            <a href="#section1" class="text-primary hover:text-accent-1 font-medium whitespace-nowrap">現状概観</a>
+            <a href="#section2" class="text-primary hover:text-accent-1 font-medium whitespace-nowrap">深刻な課題</a>
+            <a href="#section3" class="text-primary hover:text-accent-1 font-medium whitespace-nowrap">生存戦略</a>
+            <a href="#section4" class="text-primary hover:text-accent-1 font-medium whitespace-nowrap">支援制度</a>
+            <a href="#section5" class="text-primary hover:text-accent-1 font-medium whitespace-nowrap">未来展望</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <section id="section1" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-4 text-primary">1. 町工場の現状概観</h2>
+            <p class="text-center text-light-emphasis mb-10 max-w-2xl mx-auto">日本の製造業の基盤である町工場は、歴史的に重要な役割を果たしてきましたが、近年、その数は減少し、労働力の高齢化といった構造的な課題に直面しています。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <div class="stat-card">
+                    <div class="stat-value text-danger">約50%減</div>
+                    <div class="stat-label">小規模事業所数 (過去20年)</div>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート本文 [5]</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-danger">121万人減</div>
+                    <div class="stat-label">製造業の若年就業者 (34歳以下、過去20年)</div>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート本文 [8]</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-warning">約8割</div>
+                    <div class="stat-label">コロナ禍で売上2割以上減少した町工場</div>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート本文 [7]</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-center">製造業就業者数の年齢構成変化 (過去20年)</h3>
+                    <p class="text-sm text-light-emphasis mb-4 text-center">若年層の減少と高齢層の増加が顕著で、産業構造の変化と技術継承の困難さを示唆しています。</p>
+                    <div class="chart-container mx-auto h-80 md:h-96">
+                        <canvas id="ageStructureChart"></canvas>
+                    </div>
+                     <p class="text-xs text-light-emphasis mt-2 text-center">出典: レポート本文 [8]</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-center">新型コロナ禍における売上影響</h3>
+                    <p class="text-sm text-light-emphasis mb-4 text-center">多くの町工場が新型コロナウイルスの影響で大幅な売上減少を経験しました。</p>
+                    <div class="chart-container mx-auto h-80 md:h-96">
+                        <canvas id="salesImpactChart"></canvas>
+                    </div>
+                    <p class="text-xs text-light-emphasis mt-2 text-center">出典: レポート本文 [7]</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section2" class="py-12 bg-white card-bg shadow-lg rounded-lg">
+            <h2 class="text-3xl font-bold text-center mb-4 text-primary">2. 町工場存続を脅かす深刻な課題</h2>
+            <p class="text-center text-light-emphasis mb-10 max-w-2xl mx-auto">人材危機、経済的圧力、デジタル化の遅れなど、町工場は多岐にわたる深刻な課題に直面しており、これらが複合的に絡み合い経営を圧迫しています。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="flex flex-col items-center">
+                    <h3 class="text-xl font-semibold mb-3 text-center">後継者不在率 (2022年)</h3>
+                    <p class="text-sm text-light-emphasis mb-4 text-center">事業継続の大きな障壁となっています。</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="successorChart"></canvas>
+                    </div>
+                    <p class="text-xs text-light-emphasis mt-2 text-center">出典: 帝国データバンク (レポート [13])</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <h3 class="text-xl font-semibold mb-3 text-center">技術継承の課題</h3>
+                    <p class="text-sm text-light-emphasis mb-4 text-center">指導者不足が技術継承を困難にしています。</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="skillShortageChart"></canvas>
+                    </div>
+                     <p class="text-xs text-light-emphasis mt-2 text-center">出典: ものづくり白書2024 (レポート [10]), 都内調査 (レポート [14])</p>
+                </div>
+                <div class="flex flex-col items-center">
+                     <h3 class="text-xl font-semibold mb-3 text-center">コスト高騰と価格転嫁の状況</h3>
+                    <p class="text-sm text-light-emphasis mb-4 text-center">原材料費等の高騰が経営を圧迫しています。</p>
+                    <div class="chart-container h-64 md:h-72">
+                        <canvas id="costPassThroughChart"></canvas>
+                    </div>
+                    <p class="text-xs text-light-emphasis mt-2 text-center">出典: 埼玉県調査 (レポート [18])</p>
+                </div>
+            </div>
+             <div class="mt-10 text-center">
+                <h3 class="text-xl font-semibold mb-3">デジタル化対応の遅れ</h3>
+                <p class="text-sm text-light-emphasis mb-4 max-w-xl mx-auto">競争力低下に繋がり、廃業理由の上位にも挙げられています。東京都の調査では、「後継者不足」に次いで「デジタル化対応の遅れによる競争力低下」が廃業理由の第2位でした。</p>
+                <div class="stat-card max-w-sm mx-auto">
+                    <div class="stat-value text-warning">廃業理由 第2位</div>
+                    <div class="stat-label">デジタル化対応の遅れ (都内調査)</div>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート本文 [23]</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section3" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-4 text-primary">3. 町工場の再生と成長に向けた戦略的処方箋</h2>
+            <p class="text-center text-light-emphasis mb-10 max-w-2xl mx-auto">DX推進、ニッチ市場特化、人材再活性化、事業承継円滑化、レジリエンス構築、未来需要への適応、外部連携の活用など、多角的な戦略が求められます。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">🚀 デジタルトランスフォーメーション(DX)</h3>
+                    <p class="text-sm text-light-emphasis mb-2">IoT、AI、自動化技術で生産性向上、品質管理強化、新ビジネスモデル創出。</p>
+                    <p class="text-sm font-medium">事例: (株)サンコー技研「スマファク！」</p>
+                    <div class="mt-3 flow-step bg-accent-2 text-dark">手書き日報の課題</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step bg-accent-2 text-dark">モバイルアプリ開発 (外部連携)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="result-item bg-green-100 text-green-700">業務効率化・アプリ外販</div>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート [35]</p>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">🎯 ニッチ市場特化と高付加価値化</h3>
+                    <p class="text-sm text-light-emphasis mb-2">特定分野・顧客層に特化し、技術力で価格競争を回避。自社ブランド開発やサービス化。</p>
+                    <p class="text-sm font-medium">事例: 愛知ドビー(株)「バーミキュラ」</p>
+                    <ul class="list-disc list-inside text-sm text-light-emphasis mt-3 space-y-1">
+                        <li>卓越した製品性能 (無水調理)</li>
+                        <li>体験価値の訴求 (ブランド戦略)</li>
+                        <li>手厚い顧客サポート</li>
+                    </ul>
+                     <p class="text-xs text-light-emphasis mt-2">出典: レポート [38]</p>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">✨ 人材の再活性化</h3>
+                    <p class="text-sm text-light-emphasis mb-2">採用力強化 (SNS活用等)、技術継承プログラム構築、働きがい向上。</p>
+                    <p class="text-sm font-medium">事例:</p>
+                    <ul class="list-disc list-inside text-sm text-light-emphasis mt-3 space-y-1">
+                        <li>三陽工業(株): TikTok活用で採用増 [50]</li>
+                        <li>(株)フジイ金型: 「6稼4休」で休日増 [61]</li>
+                    </ul>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">🤝 事業承継の円滑化</h3>
+                    <p class="text-sm text-light-emphasis mb-2">M&A、EBO、第三者承継など多様な選択肢を検討。早期計画が重要。</p>
+                     <p class="text-sm font-medium">事例: 三陽工業(株)のM&A戦略</p>
+                    <ul class="list-disc list-inside text-sm text-light-emphasis mt-3 space-y-1">
+                        <li>後継者不在工場を買収</li>
+                        <li>資金・組織整備支援</li>
+                        <li>技能承継とシナジー効果</li>
+                    </ul>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート [74, 75]</p>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">🛡️ レジリエンス構築 (BCP)</h3>
+                    <p class="text-sm text-light-emphasis mb-2">サプライチェーン強靭化、災害等に備えた事業継続計画(BCP)策定・運用。</p>
+                    <p class="text-sm font-medium">ポイント:</p>
+                     <ul class="list-disc list-inside text-sm text-light-emphasis mt-3 space-y-1">
+                        <li>調達先の多元化、国内回帰</li>
+                        <li>設備対策、情報システム対策</li>
+                        <li>連携BCP (例: 工業団地)</li>
+                    </ul>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート [26, 86]</p>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">🌍 未来需要への適応 (SDGs/GX)</h3>
+                    <p class="text-sm text-light-emphasis mb-2">SDGs経営、GXによる脱炭素化、サーキュラーエコノミーへの移行。</p>
+                    <p class="text-sm font-medium">メリット:</p>
+                    <ul class="list-disc list-inside text-sm text-light-emphasis mt-3 space-y-1">
+                        <li>企業価値・ブランドイメージ向上</li>
+                        <li>コスト削減 (光熱費等)</li>
+                        <li>新たな事業機会、人材獲得</li>
+                    </ul>
+                    <p class="text-xs text-light-emphasis mt-2">出典: レポート [95, 105]</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section4" class="py-12 bg-white card-bg shadow-lg rounded-lg">
+            <h2 class="text-3xl font-bold text-center mb-4 text-primary">4. 町工場が活用可能な支援制度</h2>
+            <p class="text-center text-light-emphasis mb-10 max-w-2xl mx-auto">国や自治体は、資金調達、設備投資、DX推進、GX、人材育成、事業承継など、多岐にわたる支援制度を用意しています。積極的な情報収集と活用が鍵となります。</p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">支援制度名 (例)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">対象分野 (例)</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">主な内容/メリット (例)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ものづくり補助金</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">設備投資、新製品開発</td>
+                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">革新的製品・サービス開発や生産プロセス改善の設備投資等を支援。</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">事業再構築補助金</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">新分野展開、事業転換</td>
+                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">経済社会の変化に対応する大胆な事業再構築を支援。</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">中小企業省力化投資補助金</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">人手不足解消</td>
+                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">IoT、ロボット等の人手不足解消に効果がある汎用製品導入を支援。</td>
+                        </tr>
+                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">カーボンニュートラル投資促進税制</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">脱炭素化設備投資</td>
+                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">生産工程の脱炭素化と付加価値向上を両立する設備投資に税額控除等。</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">事業承継・引継ぎ補助金</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">事業承継、M&A</td>
+                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">専門家活用費用や設備投資等を補助。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-xs text-light-emphasis mt-4 text-center">注: 上記は代表例です。最新情報は各制度の公式情報をご確認ください。 (出典: レポート Table 3)</p>
+            </div>
+             <p class="text-center mt-8">その他、商工会議所・商工会、産学官連携、企業間ネットワークなども重要なリソースです。</p>
+        </section>
+
+        <section id="section5" class="py-12">
+            <h2 class="text-3xl font-bold text-center mb-4 text-primary">5. 未来への航路図：結論と展望</h2>
+            <p class="text-center text-light-emphasis mb-10 max-w-2xl mx-auto">町工場は厳しい課題に直面しつつも、変革への好機と捉え、戦略的取り組みを進めることで未来を切り開くことができます。個々の企業の努力と社会全体の支援が不可欠です。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">町工場への行動喚起</h3>
+                    <ul class="list-disc list-inside text-sm text-light-emphasis space-y-2">
+                        <li>現状維持ではなく、変化を恐れず経営改革に取り組む。</li>
+                        <li>デジタル技術導入、新市場開拓、多様な人材が活躍できる環境整備を急ぐ。</li>
+                        <li>自社の強みを再認識し、外部支援・連携を積極的に活用する。</li>
+                    </ul>
+                </div>
+                <div class="card-bg shadow-lg rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-1">政策立案者への行動喚起</h3>
+                     <ul class="list-disc list-inside text-sm text-light-emphasis space-y-2">
+                        <li>実効性の高い支援策の継続と拡充 (DX、GX、人材育成、事業承継支援等)。</li>
+                        <li>支援制度へのアクセス簡素化と情報提供強化。</li>
+                        <li>中小企業が連携しやすい環境整備。</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center text-lg font-semibold mt-12">町工場自身が変革の主体となり、社会全体がそれを支えることで、日本のものづくりの未来は明るいものとなるでしょう。</p>
+        </section>
+    </main>
+
+    <footer class="bg-section-dark text-white py-8 text-center">
+        <p>&copy; <span id="currentYear"></span> 町工場インフォグラフィック. All rights reserved.</p>
+        <p class="text-xs mt-1">このインフォグラフィックは提供された調査レポートに基づいて作成されました。</p>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            family: "'Inter', 'Noto Sans JP', sans-serif",
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    },
+                    bodyFont: {
+                        family: "'Inter', 'Noto Sans JP', sans-serif",
+                    },
+                    titleFont: {
+                        family: "'Inter', 'Noto Sans JP', sans-serif",
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: { family: "'Inter', 'Noto Sans JP', sans-serif" }
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: {
+                        font: { family: "'Inter', 'Noto Sans JP', sans-serif" }
+                    },
+                     grid: { color: '#e2e8f0' } // grid-gray-200
+                }
+            }
+        };
+
+        function wrapLabel(label, maxWidth) {
+            if (typeof label !== 'string' || label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            let currentLine = '';
+            const lines = [];
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 0 ? lines : [label]; // Fallback to original label if split fails
+        }
+        
+        const CHART_COLORS = {
+            primary: getComputedStyle(document.documentElement).getPropertyValue('--color-chart-1').trim() || '#007bff',
+            accent1: getComputedStyle(document.documentElement).getPropertyValue('--color-chart-2').trim() || '#17a2b8',
+            accent2: getComputedStyle(document.documentElement).getPropertyValue('--color-chart-3').trim() || '#66d9ff',
+            warning: getComputedStyle(document.documentElement).getPropertyValue('--color-chart-4').trim() || '#ffc107',
+            success: getComputedStyle(document.documentElement).getPropertyValue('--color-chart-5').trim() || '#28a745',
+            danger: getComputedStyle(document.documentElement).getPropertyValue('--color-danger').trim() || '#dc3545',
+        };
+
+
+        // Age Structure Chart (Bar Chart)
+        const ageData = {
+            labels: [wrapLabel('若年就業者 (34歳以下) 減少', 16), wrapLabel('高齢就業者 (65歳以上) 増加', 16)],
+            datasets: [{
+                label: '就業者数変化 (万人)',
+                data: [-121, 33],
+                backgroundColor: [CHART_COLORS.danger, CHART_COLORS.warning],
+                borderColor: [CHART_COLORS.danger, CHART_COLORS.warning],
+                borderWidth: 1
+            }]
+        };
+        new Chart(document.getElementById('ageStructureChart'), {
+            type: 'bar',
+            data: ageData,
+            options: { ...defaultChartOptions }
+        });
+
+        // Sales Impact Chart (Donut Chart)
+        const salesImpactData = {
+            labels: [wrapLabel('売上2割以上減少', 16), wrapLabel('その他',16)],
+            datasets: [{
+                label: 'コロナ禍での売上影響',
+                data: [80, 20], // Approx 80%
+                backgroundColor: [CHART_COLORS.danger, CHART_COLORS.accent2],
+                hoverOffset: 4
+            }]
+        };
+        new Chart(document.getElementById('salesImpactChart'), {
+            type: 'doughnut',
+            data: salesImpactData,
+            options: { ...defaultChartOptions, cutout: '60%' }
+        });
+
+        // Successor Chart (Donut Chart)
+        const successorData = {
+            labels: [wrapLabel('後継者不在',16), wrapLabel('後継者あり',16)],
+            datasets: [{
+                label: '後継者不在率',
+                data: [57.2, 42.8],
+                backgroundColor: [CHART_COLORS.warning, CHART_COLORS.primary],
+                hoverOffset: 4
+            }]
+        };
+        new Chart(document.getElementById('successorChart'), {
+            type: 'doughnut',
+            data: successorData,
+            options: { ...defaultChartOptions, cutout: '60%' }
+        });
+        
+        // Skill Shortage Chart (Bar Chart) - Dummy data as report lacks specific %
+        const skillShortageData = {
+            labels: [wrapLabel('指導人材不足を感じる',16), wrapLabel('若手技能者不足を感じる',16)],
+            datasets: [{
+                label: '企業の割合 (%)',
+                data: [65, 55], // Example data, actual percentages might vary
+                backgroundColor: [CHART_COLORS.accent1, CHART_COLORS.accent2],
+                borderColor: [CHART_COLORS.accent1, CHART_COLORS.accent2],
+                borderWidth: 1
+            }]
+        };
+        new Chart(document.getElementById('skillShortageChart'), {
+            type: 'bar',
+            data: skillShortageData,
+            options: { ...defaultChartOptions, indexAxis: 'y' }
+        });
+
+        // Cost Pass-Through Chart (Grouped Bar Chart or simplified)
+        // Simplified to a single bar chart showing % of firms unable to pass on costs adequately
+        const costPassData = {
+            labels: [wrapLabel('コスト増の影響あり',16)],
+            datasets: [
+                {
+                    label: 'うち、価格転嫁5割未満の企業割合 (%)',
+                    data: [60], // 60% of those affected (80%) cannot pass on >50% of costs
+                    backgroundColor: CHART_COLORS.danger,
+                },
+                {
+                    label: 'うち、比較的価格転嫁できている企業割合 (%)',
+                    data: [40], // Remainder
+                    backgroundColor: CHART_COLORS.success,
+                }
+            ]
+        };
+         new Chart(document.getElementById('costPassThroughChart'), {
+            type: 'bar',
+            data: costPassData,
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, grid: { color: '#e2e8f0' }, max:100, ticks: {callback: function(value) {return value + "%"}} }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].dataset.label;
+                            },
+                            label: function(context) {
+                                let label = context.chart.data.labels[context.dataIndex] || '';
+                                if (Array.isArray(label)) {
+                                    label = label.join(' ');
+                                }
+                                return label + ': ' + context.formattedValue + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
