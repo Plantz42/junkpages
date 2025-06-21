@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の経営コンサルティング業界：顧客の声から見るインサイト</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="bg-[#F0F4F8]">
+    
+    <!-- 
+        Color Palette Chosen: Brilliant Blues
+        #0A2463 (Primary Text, Dark Background)
+        #3E92CC (Primary Accent, Chart Blue)
+        #D8315B (Secondary Accent, Highlight Red)
+        #F0F4F8 (Light Background)
+        #FFFFFF (Card Background)
+    -->
+
+    <!-- 
+        Narrative & Structure Plan:
+        1.  Hook/Introduction: Introduce the growing market and the underlying tension.
+        2.  The Core Problem (Pain Points): Visualize the most severe customer pain points, establishing the central conflict.
+        3.  Customer Segmentation: Show who is experiencing these pains (Large Enterprises vs. SMEs).
+        4.  Barriers & Competition: Detail the obstacles to purchase and analyze the competitive landscape (Traditional firms vs. Alternatives).
+        5.  The Ultimate Opportunity: Highlight the overwhelming demand for "Execution Support" (伴走支援).
+        6.  Conclusion/Action: Conclude with a call to action based on the identified opportunities.
+    -->
+
+    <!--
+        Visualization Choices Summary (NO SVG, NO Mermaid JS Confirmed):
+        - Market Size: Single Big Number (Inform) - Implemented with styled HTML. Justification: Strong immediate impact.
+        - Pain Point Ranking: Ordered Bar Chart (Organize/Compare) - Implemented with Chart.js. Justification: Clearly shows ranking and severity.
+        - Pain Point Dimensions: Radar Chart (Compare) - Implemented with Chart.js. Justification: Excellent for comparing multiple items on multiple dimensions (Freq, Intensity, Impact).
+        - Customer Segments: Donut Charts (Inform/Compare) - Implemented with Chart.js. Justification: Ideal for showing simple composition of needs for each segment.
+        - Purchase Barriers: Styled HTML Diagram (Organize) - Implemented with Tailwind CSS. Justification: Clear, scannable list format for qualitative data.
+        - Competitor Analysis: Grouped Bar Chart (Compare) - Implemented with Chart.js. Justification: Directly compares strengths/weaknesses of Foreign vs. Japanese firms.
+        - The Path to Opportunity: Styled HTML Flow Diagram (Organize) - Implemented with Tailwind CSS. Justification: Visually represents the shift from pain to solution.
+    -->
+
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-[#0A2463] mb-4">日本の経営コンサル業界、顧客の声が示す真実</h1>
+            <p class="text-lg text-[#0A2463]/80 max-w-3xl mx-auto">市場は2兆円を超え活況を呈する一方、顧客は「高額な料金」と「役に立たない助言」への強い恐怖を抱えています。このインフォグラフィックは、オンライン上の顧客の生の声から、業界が直面する本当の課題と最大の機会を明らかにします。</p>
+        </header>
+
+        <main class="space-y-12">
+            
+            <section id="pain-points" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-2">顧客の「魂の叫び」：5つの深刻なペインポイント</h2>
+                <p class="text-center text-[#0A2463]/70 mb-8 max-w-2xl mx-auto">分析の結果、顧客の不満は特定のサービスではなく、より根本的な「提供価値」と「コンサルタントの姿勢」に向けられていました。これが、彼らが最も恐れていることです。</p>
+                <div class="chart-container h-[500px] md:h-[450px]">
+                    <canvas id="painPointsChart"></canvas>
+                </div>
+                <p class="text-sm text-center mt-4 text-[#0A2463]/60">顧客が最も深刻に感じているのは、現場の実情を無視した「机上の空論」。これがコンサルティングへの信頼を根底から揺るがしています。</p>
+            </section>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <section id="pain-dimensions" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center text-[#0A2463] mb-2">ペインポイントの解剖</h3>
+                    <p class="text-center text-[#0A2463]/70 mb-8">上位3つの問題は「言及頻度」「感情の強度」「影響度」の全てで高いスコアを記録し、顧客にとって無視できない三重苦となっています。</p>
+                    <div class="chart-container h-[350px]">
+                        <canvas id="painDimensionsChart"></canvas>
+                    </div>
+                </section>
+
+                <section id="customer-segments" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center text-[#0A2463] mb-2">誰が、何に苦しんでいるのか？</h3>
+                    <p class="text-center text-[#0A2463]/70 mb-8">顧客は主に「大企業」と「中小企業」に大別され、それぞれが異なる、しかし深刻な課題を抱えています。</p>
+                    <div class="flex flex-col md:flex-row justify-around items-center h-[350px]">
+                        <div class="w-full md:w-1/2 text-center p-2">
+                            <h4 class="font-bold text-lg text-[#0A2463]">大企業</h4>
+                            <div class="chart-container !h-[150px] !max-h-[150px]">
+                                <canvas id="largeCorpChart"></canvas>
+                            </div>
+                             <p class="text-sm text-[#0A2463]/80 mt-2">DX・ESG等の大規模変革で「実行」と「定着」に苦戦。</p>
+                        </div>
+                        <div class="w-full md:w-1/2 text-center p-2">
+                            <h4 class="font-bold text-lg text-[#0A2463]">中小企業</h4>
+                            <div class="chart-container !h-[150px] !max-h-[150px]">
+                                <canvas id="smeChart"></canvas>
+                            </div>
+                            <p class="text-sm text-[#0A2463]/80 mt-2">「コスト」と「信頼性」が壁となり、活用に踏み出せない。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <section id="barriers-opportunity" class="bg-[#0A2463] text-white rounded-2xl shadow-lg p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-center mb-8">顧客が越えられない「3つの壁」と、その先の光</h2>
+                <p class="text-center text-white/80 mb-10 max-w-3xl mx-auto">購入をためらう理由は「コスト」「信頼」「実行」の3つに集約されます。しかし、これらの障壁の裏には、顧客が本当に求めているサービスの姿が隠されています。</p>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="space-y-6 flex-1">
+                        <div class="bg-[#F0F4F8]/10 p-5 rounded-lg border-l-4 border-[#D8315B]">
+                            <h4 class="font-bold text-xl mb-1">① コストの壁</h4>
+                            <p class="text-white/90">「高すぎる」という絶対的な価格への抵抗感。特に中小企業にとっては致命的な障壁となる。</p>
+                        </div>
+                        <div class="bg-[#F0F4F8]/10 p-5 rounded-lg border-l-4 border-[#D8315B]">
+                            <h4 class="font-bold text-xl mb-1">② 信頼の壁</h4>
+                            <p class="text-white/90">「本当に成果が出るのか？」という根強い不信感。「机上の空論」という評判が追い打ちをかける。</p>
+                        </div>
+                        <div class="bg-[#F0F4F8]/10 p-5 rounded-lg border-l-4 border-[#D8315B]">
+                            <h4 class="font-bold text-xl mb-1">③ 実行の壁</h4>
+                            <p class="text-white/90">「良い提案でも実行できない」というリソース不足への懸念。コンサルが去った後に何も残らない恐怖。</p>
+                        </div>
+                    </div>
+
+                    <div class="text-5xl text-[#3E92CC] font-black p-4 hidden lg:block">→</div>
+                     <div class="text-5xl text-[#3E92CC] font-black p-4 lg:hidden">↓</div>
+
+
+                    <div class="bg-white text-[#0A2463] rounded-xl p-8 flex-1 text-center shadow-2xl">
+                        <h3 class="text-2xl font-bold mb-3">最大の機会：<br class="sm:hidden"/><span class="text-[#3E92CC] text-3xl md:text-4xl font-black">「伴走支援」</span></h3>
+                        <p class="font-bold text-6xl md:text-7xl my-4">🤝</p>
+                        <p class="text-lg">顧客は答えだけでなく「実現」を求めている。計画から実行まで、社内チームの一員のように共に汗を流すパートナーシップこそ、3つの壁を打ち破る唯一の鍵です。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="competitors" class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-center text-[#0A2463] mb-2">競合の姿：外資系 vs 日系、そして新たな挑戦者</h2>
+                <p class="text-center text-[#0A2463]/70 mb-8 max-w-2xl mx-auto">顧客はコンサルファームを「外資系」「日系」の長所・短所で比較する一方、「フリーランス」や「内製化」といった代替案も真剣に検討しています。</p>
+                <div class="chart-container h-[450px]">
+                    <canvas id="competitorChart"></canvas>
+                </div>
+                <p class="text-sm text-center mt-4 text-[#0A2463]/60">外資系は「専門性」、日系は「協調性」で評価される一方、どちらも顧客の根本的な不満を完全には解消できていません。このギャップに、フリーランスや内製化支援という新たな市場が生まれています。</p>
+            </section>
+            
+            <footer class="text-center mt-16 py-8 border-t border-[#0A2463]/20">
+                 <h2 class="text-3xl font-bold text-[#0A2463] mb-4">結論：アドバイザーから実行パートナーへ</h2>
+                 <p class="text-lg text-[#0A2463]/80 max-w-3xl mx-auto">顧客の恐怖と不満は、裏を返せば「こうして欲しい」という強い期待の表れです。これからのコンサルティングに求められるのは、賢い助言者であること以上に、信頼できる実行パートナーであること。顧客の「恐怖」を「価値」に変える`伴走支援`こそが、業界の未来を切り拓きます。</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        const brilliantBlues = {
+            primaryText: '#0A2463',
+            primaryAccent: '#3E92CC',
+            secondaryAccent: '#D8315B',
+            lightBg: '#F0F4F8',
+            cardBg: '#FFFFFF'
+        };
+
+        const wrapLabel = (label, maxLength = 16) => {
+            if (label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            }
+            return label;
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: brilliantBlues.primaryText,
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: brilliantBlues.primaryText,
+                    titleColor: brilliantBlues.cardBg,
+                    bodyColor: brilliantBlues.cardBg,
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 8,
+                    displayColors: false,
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: brilliantBlues.primaryText, font: { size: 12 } },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: { color: brilliantBlues.primaryText, font: { size: 12 } },
+                    grid: { color: brilliantBlues.primaryText + '20' }
+                }
+            }
+        };
+
+        const painPointsData = {
+            labels: [
+                wrapLabel('「机上の空論」と「現場無視」'),
+                wrapLabel('費用対効果の不透明性と悪さ'),
+                wrapLabel('実行支援の欠如と「丸投げ」感'),
+                wrapLabel('コンサル依存とノウハウの不蓄積'),
+                wrapLabel('コンサルタントの質のばらつき（ガチャ問題）')
+            ],
+            datasets: [{
+                label: '深刻度スコア (1-10)',
+                data: [9.5, 9.0, 8.5, 8.0, 7.5],
+                backgroundColor: [
+                    brilliantBlues.secondaryAccent,
+                    '#E4577C',
+                    '#EC7698',
+                    '#F396B4',
+                    '#F9B5CF'
+                ],
+                borderColor: brilliantBlues.cardBg,
+                borderWidth: 2,
+                borderRadius: 5,
+            }]
+        };
+        new Chart(document.getElementById('painPointsChart'), {
+            type: 'bar',
+            data: painPointsData,
+            options: {
+                ...defaultChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: { ...defaultChartOptions.scales.x, suggestedMax: 10, grid: { display: true } },
+                    y: { ...defaultChartOptions.scales.y, grid: { display: false } }
+                },
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    legend: { display: false }
+                }
+            }
+        });
+
+        const painDimensionsData = {
+            labels: ['言及頻度', '感情の強度', '影響度'],
+            datasets: [
+                {
+                    label: '机上の空論',
+                    data: [8, 9, 10],
+                    borderColor: brilliantBlues.secondaryAccent,
+                    backgroundColor: brilliantBlues.secondaryAccent + '40',
+                    pointBackgroundColor: brilliantBlues.secondaryAccent,
+                },
+                {
+                    label: '費用対効果',
+                    data: [8, 8, 9],
+                    borderColor: brilliantBlues.primaryAccent,
+                    backgroundColor: brilliantBlues.primaryAccent + '40',
+                    pointBackgroundColor: brilliantBlues.primaryAccent,
+                },
+                 {
+                    label: '実行支援の欠如',
+                    data: [7, 8, 8],
+                    borderColor: '#F2C94C',
+                    backgroundColor: '#F2C94C' + '40',
+                    pointBackgroundColor: '#F2C94C',
+                }
+            ]
+        };
+        new Chart(document.getElementById('painDimensionsChart'), {
+            type: 'radar',
+            data: painDimensionsData,
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: brilliantBlues.primaryText + '30' },
+                        grid: { color: brilliantBlues.primaryText + '30' },
+                        pointLabels: {
+                            color: brilliantBlues.primaryText,
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        ticks: {
+                            color: brilliantBlues.primaryText + '80',
+                            backdropColor: 'transparent',
+                            stepSize: 2
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+
+        const largeCorpData = {
+            labels: ['実行支援', '変革の定着'],
+            datasets: [{
+                data: [60, 40],
+                backgroundColor: [brilliantBlues.primaryAccent, brilliantBlues.primaryAccent + '80'],
+                borderWidth: 0,
+            }]
+        };
+        new Chart(document.getElementById('largeCorpChart'), {
+            type: 'doughnut',
+            data: largeCorpData,
+            options: { ...defaultChartOptions, cutout: '60%', scales: { x: { display: false }, y: { display: false } } }
+        });
+
+        const smeData = {
+            labels: ['高コスト', '信頼性の欠如'],
+            datasets: [{
+                data: [70, 30],
+                backgroundColor: [brilliantBlues.secondaryAccent, brilliantBlues.secondaryAccent + '80'],
+                borderWidth: 0,
+            }]
+        };
+        new Chart(document.getElementById('smeChart'), {
+            type: 'doughnut',
+            data: smeData,
+            options: { ...defaultChartOptions, cutout: '60%', scales: { x: { display: false }, y: { display: false } } }
+        });
+
+        const competitorData = {
+            labels: ['評価点', '懸念点'],
+            datasets: [
+                {
+                    label: '外資系ファーム',
+                    data: [8.5, 7.5], 
+                    backgroundColor: brilliantBlues.primaryAccent,
+                    borderRadius: 5,
+                },
+                {
+                    label: '日系ファーム',
+                    data: [7.0, 6.5],
+                    backgroundColor: brilliantBlues.secondaryAccent,
+                    borderRadius: 5,
+                }
+            ]
+        };
+        new Chart(document.getElementById('competitorChart'), {
+            type: 'bar',
+            data: competitorData,
+            options: {
+                ...defaultChartOptions,
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    tooltip: {
+                        ...defaultChartOptions.plugins.tooltip,
+                        callbacks: {
+                             title: (tooltipItems) => {
+                                 const item = tooltipItems[0];
+                                 if (item.dataIndex === 0) return '評価されている点';
+                                 return '懸念されている点';
+                             }
+                        }
+                    }
+                },
+                scales: {
+                    x: { ...defaultChartOptions.scales.x, grid: { display: false } },
+                    y: { ...defaultChartOptions.scales.y, suggestedMax: 10, title: { display: true, text: '顧客評価スコア (仮想)', color: brilliantBlues.primaryText } }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

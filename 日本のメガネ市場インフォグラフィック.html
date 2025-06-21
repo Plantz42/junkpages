@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本のメガネ市場インサイト：顧客の声が示す未来</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #FF6B6B;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body class="text-[#3D3D3D]">
+
+    <header class="bg-[#004FFF] text-white p-8 text-center shadow-lg">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2">The Clear Vision Report</h1>
+        <p class="text-lg md:text-xl text-[#89CFF0]">日本のメガネ市場インサイト：顧客の声が示す真実と未来</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <section id="pain-points" class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#004FFF] mb-2">見過ごされた危機：顧客の「不満」の深刻度</h2>
+                <p class="max-w-3xl mx-auto text-lg">オンライン上の無数の声は、業界が直面する最も根深い問題を明らかにしています。それはデザインではなく、日常的な「機能不全」に起因する身体的な苦痛です。</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="text-center md:col-span-1">
+                        <p class="text-lg font-bold">最重要ペインポイント</p>
+                        <p class="text-8xl font-black text-[#FF6B6B]">9.2<span class="text-4xl">/10</span></p>
+                        <p class="text-xl font-bold mt-2">物理的な不快感とズレ</p>
+                        <p class="mt-2 text-gray-600">メガネが「ズレる」「痛い」「重い」。この問題は、他の全ての不満の根源となっています。</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="chart-container" style="height:350px;">
+                            <canvas id="painPointChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-4">顧客が報告する主要なペインポイントの深刻度スコア（10点満点）。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vicious-cycle" class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#004FFF] mb-2">不適合が引き起こす「負の連鎖」</h2>
+                <p class="max-w-3xl mx-auto text-lg">メガネの「ズレ」は単なる不快感ではありません。それは視力矯正という本来の機能を損ない、利用者の心身に悪影響を及ぼす重大な問題です。</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <div class="flex flex-col md:flex-row justify-around items-center text-center space-y-4 md:space-y-0">
+                    <div class="flex flex-col items-center">
+                        <div class="w-24 h-24 bg-[#89CFF0] rounded-full flex items-center justify-center mb-2 shadow-md">
+                            <span class="text-4xl">🔧</span>
+                        </div>
+                        <h3 class="font-bold text-lg">不適切な調整</h3>
+                        <p class="text-sm max-w-xs">フィッティング技術の不足が全ての始まり。</p>
+                    </div>
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">➔</div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-24 h-24 bg-[#FFD700] rounded-full flex items-center justify-center mb-2 shadow-md">
+                            <span class="text-4xl">😖</span>
+                        </div>
+                        <h3 class="font-bold text-lg">物理的な不快感</h3>
+                        <p class="text-sm max-w-xs">メガネがズレる、鼻や耳が痛くなる。</p>
+                    </div>
+                    <div class="flowchart-arrow transform md:rotate-0 rotate-90">➔</div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-24 h-24 bg-[#FF6B6B] rounded-full flex items-center justify-center mb-2 shadow-md">
+                            <span class="text-4xl">😵</span>
+                        </div>
+                        <h3 class="font-bold text-lg">光学的な問題</h3>
+                        <p class="text-sm max-w-xs">視界の歪みと眼精疲労を引き起こす。</p>
+                    </div>
+                </div>
+                <p class="text-center mt-6 md:mt-8 font-semibold text-lg max-w-4xl mx-auto">結論：かけ心地が悪いメガネは、もはや医療機器としての機能を果たしていません。</p>
+            </div>
+        </section>
+
+        <section id="competitors" class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#004FFF] mb-2">マスマーケットの四つ巴：各社の戦略と弱点</h2>
+                <p class="max-w-3xl mx-auto text-lg">低価格市場では4大チェーンが激しく競争していますが、顧客の認識はそれぞれ異なります。価値は価格だけでなく、サービスと信頼性で測られています。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg shadow-xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">JINS</h3>
+                    <div class="chart-container" style="height:150px; max-height:150px;">
+                        <canvas id="jinsChart"></canvas>
+                    </div>
+                    <p class="mt-4 font-semibold text-blue-600">強み：ファッション性</p>
+                    <p class="text-sm text-gray-600">トレンドを捉えたデザインで若年層にアピール。</p>
+                    <p class="mt-2 font-semibold text-red-500">弱み：品質の不安定さ</p>
+                    <p class="text-sm text-gray-600">「すぐに壊れた」という耐久性への不満が散見。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">Zoff</h3>
+                    <div class="chart-container" style="height:150px; max-height:150px;">
+                        <canvas id="zoffChart"></canvas>
+                    </div>
+                    <p class="mt-4 font-semibold text-blue-600">強み：デザインの豊富さ</p>
+                    <p class="text-sm text-gray-600">多様な選択肢と購入までのスピード感。</p>
+                    <p class="mt-2 font-semibold text-red-500">弱み：接客の質のばらつき</p>
+                    <p class="text-sm text-gray-600">スタッフの対応への深刻な苦情がブランドを毀損。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">眼鏡市場</h3>
+                    <div class="chart-container" style="height:150px; max-height:150px;">
+                        <canvas id="ichibaChart"></canvas>
+                    </div>
+                    <p class="mt-4 font-semibold text-blue-600">強み：価格の透明性</p>
+                    <p class="text-sm text-gray-600">「追加料金なし」モデルが絶大な信頼を獲得。</p>
+                    <p class="mt-2 font-semibold text-yellow-500">課題：ファッション性</p>
+                    <p class="text-sm text-gray-600">デザインの斬新さでは他社に劣る印象。</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">OWNDAYS</h3>
+                    <div class="chart-container" style="height:150px; max-height:150px;">
+                        <canvas id="owndaysChart"></canvas>
+                    </div>
+                    <p class="mt-4 font-semibold text-blue-600">強み：手厚い保証制度</p>
+                    <p class="text-sm text-gray-600">顧客のリスクを排除するアフターサービスが強み。</p>
+                    <p class="mt-2 font-semibold text-yellow-500">課題：製品の独自性</p>
+                    <p class="text-sm text-gray-600">ブランドの強みがサービス面に集中している。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="opportunities" class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#004FFF] mb-2">未来への視界：4つの成長機会</h2>
+                <p class="max-w-3xl mx-auto text-lg">顧客の不満と要望は、次世代のメガネ市場をリードするための明確なロードマップを示しています。これらは単なる改善点ではなく、新たな価値を創造する事業機会です。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-xl p-6 flex items-start space-x-4">
+                    <div class="text-4xl text-[#004FFF]">①</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">フィッティング革命</h3>
+                        <p class="text-gray-700">「ズレない保証」を掲げ、フィッティングをサービスの中核に据える。3Dスキャン等の技術を活用し、究極のパーソナライズを実現する。</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 flex items-start space-x-4">
+                    <div class="text-4xl text-[#004FFF]">②</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">「遠近両用」市場の制覇</h3>
+                        <p class="text-gray-700">「慣れる」のではなく「慣れさせる」技術とサポートで、失敗率の高い市場を制する。専門家による伴走型プログラムで顧客の不安を解消する。</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 flex items-start space-x-4">
+                    <div class="text-4xl text-[#004FFF]">③</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">「デジタルワークレンズ」の創造</h3>
+                        <p class="text-gray-700">ブルーライトカットの先へ。科学的根拠に基づき、デジタル眼精疲労の根本原因にアプローチする、新たな機能性レンズカテゴリーを確立する。</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 flex items-start space-x-4">
+                    <div class="text-4xl text-[#004FFF]">④</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">サービス品質による顧客獲得</h3>
+                        <p class="text-gray-700">競合のサービス品質のばらつきを突き、どの店舗・スタッフでも最高の体験を約束する。究極のアフターサービスで不満を持つ顧客を奪う。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#3D3D3D] text-white text-center p-6">
+        <p>本インフォグラフィックは、オンライン上の消費者インテリジェンス分析に基づいています。</p>
+        <p class="text-sm text-gray-400 mt-1">© 2025 Customer Intelligence Analysis. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const wrapText = (text) => {
+            const maxLength = 16;
+            if (typeof text !== 'string' || text.length <= maxLength) {
+                return text;
+            }
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).length > maxLength && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    if (currentLine.length > 0) {
+                        currentLine += ' ';
+                    }
+                    currentLine += word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const sharedChartOptions = {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        };
+
+        const painPointData = {
+            labels: [
+                wrapText('物理的な不快感とズレ'),
+                wrapText('遠近両用レンズへの不適応'),
+                wrapText('「似合わない」という審美的不安'),
+                wrapText('見え方の質と目の疲労'),
+                wrapText('価格設定の不透明性と追加料金')
+            ],
+            datasets: [{
+                label: '深刻度スコア',
+                data: [9.2, 8.8, 8.1, 7.9, 7.5],
+                backgroundColor: ['#FF6B6B', '#FF8C8C', '#FFADAD', '#FFCFCF', '#FFECEC'],
+                borderColor: '#FF6B6B',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(document.getElementById('painPointChart'), {
+            type: 'bar',
+            data: painPointData,
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 10,
+                        grid: {
+                            color: '#e0e0e0'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+        
+        const createCompetitorChart = (ctx, strengths, weaknesses) => {
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['強み', '弱み/課題'],
+                    datasets: [{
+                        data: [strengths, weaknesses],
+                        backgroundColor: ['#004FFF', '#FF6B6B'],
+                        borderColor: ['#FFFFFF', '#FFFFFF'],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                           display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (tooltipItems) => tooltipItems[0].label
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        createCompetitorChart(document.getElementById('jinsChart'), 70, 30);
+        createCompetitorChart(document.getElementById('zoffChart'), 60, 40);
+        createCompetitorChart(document.getElementById('ichibaChart'), 85, 15);
+        createCompetitorChart(document.getElementById('owndaysChart'), 90, 10);
+        
+    </script>
+</body>
+</html>

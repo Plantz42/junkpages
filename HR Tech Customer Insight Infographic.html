@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【修正版】インフォグラフィック：採用担当者の声から見るHRテックの現状と未来</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #F2EFEA;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flow-line::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 2px;
+            background-color: #00A8E8;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+         .flow-node {
+            border: 2px solid #00A8E8;
+            background-color: #F2EFEA;
+            z-index: 1;
+        }
+        .friction-point {
+            color: #F26419;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="text-[#003459]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 text-[#003459]">採用担当者の三正面作戦</h1>
+            <p class="text-lg md:text-xl text-[#007EA7]">HRテックユーザーのオンライン上の声から見る、課題と機会</p>
+        </header>
+
+        <main class="space-y-12">
+            <section id="chaos" class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">最重要課題：「インテグレーション・カオス」</h2>
+                <p class="text-center text-[#007EA7] mb-8 max-w-3xl mx-auto">分断されたツール群が採用担当者の業務を圧迫し、燃え尽きやROIの低下を引き起こしています。これは単なる非効率ではなく、採用活動そのものを妨害する「ワークフローの崩壊」です。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="text-center p-4">
+                        <div class="text-5xl font-bold text-[#00A8E8]">🎯</div>
+                        <h3 class="text-xl font-bold mt-2">人材不足</h3>
+                        <p class="mt-1 text-sm">ダイレクトリクルーティングによる「攻め」の採用が必須に。</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-5xl font-bold text-[#00A8E8]">📢</div>
+                        <h3 class="text-xl font-bold mt-2">アテンション不足</h3>
+                        <p class="mt-1 text-sm">採用広報によるブランド構築で候補者を惹きつける必要性。</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-5xl font-bold text-[#00A8E8]">⏳</div>
+                        <h3 class="text-xl font-bold mt-2">時間不足</h3>
+                        <p class="mt-1 text-sm">ATSによる業務効率化が不可欠だが、ツールが分断されている。</p>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 border-2 border-dashed border-[#F26419] rounded-lg bg-orange-50">
+                    <h3 class="text-xl font-bold text-center text-[#F26419] mb-4">典型的な非効率ワークフロー</h3>
+                    <div class="flex items-center justify-center space-x-2 md:space-x-4 text-xs md:text-sm text-center">
+                        <div class="p-2 rounded-md bg-white shadow">媒体A</div>
+                        <span class="font-bold text-[#F26419]">→</span>
+                        <div class="p-2 rounded-md bg-white shadow">CSV Export</div>
+                        <span class="font-bold text-[#F26419]">→</span>
+                        <div class="p-2 rounded-md bg-white shadow">Excel手入力<br><span class="friction-point">⚠️ ミス発生</span></div>
+                        <span class="font-bold text-[#F26419]">→</span>
+                        <div class="p-2 rounded-md bg-white shadow">ATSへ転記<br><span class="friction-point">⚠️ 時間浪費</span></div>
+                        <span class="font-bold text-[#F26419]">→</span>
+                        <div class="p-2 rounded-md bg-white shadow">カレンダー<br><span class="friction-point">⚠️ 手動調整</span></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="pain-points" class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">顧客のペインポイント分析</h2>
+                <p class="text-center text-[#007EA7] mb-8 max-w-3xl mx-auto">顧客の不満は、言及頻度・感情の強度・影響度から深刻度が評価されます。特に「ツール乱立」と「工数対効果の悪さ」が突出した課題です。</p>
+                <div class="chart-container">
+                    <canvas id="painPointsChart"></canvas>
+                </div>
+            </section>
+
+            <section id="personas" class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                 <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">2つの採用担当者ペルソナ</h2>
+                <p class="text-center text-[#007EA7] mb-8 max-w-3xl mx-auto">オンライン上の声から、目的と優先事項が異なる2つの主要な顧客セグメントが浮かび上がりました。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="border-2 border-[#007EA7] rounded-lg p-6 text-center">
+                        <h3 class="text-2xl font-bold text-[#007EA7]">効率重視の実利家</h3>
+                        <p class="text-sm mt-1 mb-4">(中小企業・大量採用担当者)</p>
+                        <div class="chart-container" style="height: 250px; max-height: 250px;">
+                            <canvas id="pragmatistChart"></canvas>
+                        </div>
+                        <ul class="text-left mt-4 space-y-2 list-disc list-inside">
+                            <li>コストと時間の削減を最優先</li>
+                            <li>価格に敏感で、シンプルさを重視</li>
+                            <li>「工数削減」「一元管理」がキーワード</li>
+                            <li>Excel/無料ツールから移行する傾向</li>
+                        </ul>
+                    </div>
+                    <div class="border-2 border-[#F26419] rounded-lg p-6 text-center">
+                        <h3 class="text-2xl font-bold text-[#F26419]">ブランド主導の戦略家</h3>
+                        <p class="text-sm mt-1 mb-4">(スタートアップ・競争の激しい業界)</p>
+                        <div class="chart-container" style="height: 250px; max-height: 250px;">
+                            <canvas id="strategistChart"></canvas>
+                        </div>
+                        <ul class="text-left mt-4 space-y-2 list-disc list-inside">
+                            <li>質の高い人材獲得を最優先</li>
+                            <li>「採用広報」への投資を重視</li>
+                            <li>「カルチャーフィット」「候補者体験」がキーワード</li>
+                            <li>ツールはタレントブランド構築の手段</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="barriers" class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">購入を妨げる4つの壁</h2>
+                <p class="text-center text-[#007EA7] mb-8 max-w-3xl mx-auto">多くの企業が課題を認識しながらも、ツールの導入には複数の障壁が存在します。特に価格と導入の複雑さが大きな懸念材料となっています。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">💰</div>
+                        <h3 class="text-lg font-bold">価格/コスト</h3>
+                        <p class="text-sm mt-1">「料金が高い」「使わない機能にまで支払いたくない」</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">⚙️</div>
+                        <h3 class="text-lg font-bold">導入の煩雑さ</h3>
+                        <p class="text-sm mt-1">「セットアップが複雑そう」「データ移行が面倒」</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">🤔</div>
+                        <h3 class="text-lg font-bold">社内浸透への不安</h3>
+                        <p class="text-sm mt-1">「担当者全員が使いこなせるか心配」</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-4xl mb-2">🧩</div>
+                        <h3 class="text-lg font-bold">機能不足</h3>
+                        <p class="text-sm mt-1">「必要な求人媒体と連携していない」</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="opportunities" class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">勝利への道：4つの機会</h2>
+                <p class="text-center text-[#007EA7] mb-8 max-w-3xl mx-auto">分析から見えてきた課題は、そのまま事業機会に繋がります。市場の求める次世代の採用プラットフォームへの道筋は明確です。</p>
+                <div class="relative pt-4">
+                    <div class="flow-line"></div>
+                    <div class="relative flex flex-col items-center mb-8">
+                        <div class="flow-node w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white bg-[#00A8E8]">1</div>
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold">ワークフローで勝利する</h3>
+                            <p class="mt-1 max-w-md">個別の機能競争から脱却し、ソーシングから採用までを繋ぐシームレスな統合プラットフォームを構築する。</p>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-center mb-8">
+                        <div class="flow-node w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white bg-[#00A8E8]">2</div>
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold">「ExcelからATSへ」を狙う</h3>
+                            <p class="mt-1 max-w-md">手動管理の限界に達したユーザー層に対し、具体的な苦痛に訴えかけるシンプルで低価格なプランを提供する。</p>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-center mb-8">
+                        <div class="flow-node w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white bg-[#00A8E8]">3</div>
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold">ブランド主導の戦略家を支援</h3>
+                            <p class="mt-1 max-w-md">採用広報コンテンツの作成・配信・効果測定までをプラットフォーム内で完結させ、ROIを可視化する。</p>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-center">
+                        <div class="flow-node w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white bg-[#00A8E8]">4</div>
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold">「副操縦士」としてのAI</h3>
+                            <p class="mt-1 max-w-md">単なる自動化ではなく、スカウト文面作成支援や候補者推薦など、採用担当者の能力を拡張するAIを開発する。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 py-8 border-t border-[#007EA7]">
+            <p class="text-[#007EA7]">&copy; 2025 Customer Intelligence Analysis. All rights reserved.</p>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const brandColors = {
+        brightBlue: '#00A8E8',
+        darkerBlue: '#007EA7',
+        deepBlue: '#003459',
+        offWhite: '#F2EFEA',
+        vibrantOrange: '#F26419'
+    };
+    const defaultFontFamily = "'Noto Sans JP', sans-serif";
+
+    const wrapLabel = (label, maxLength = 16) => {
+        if (typeof label !== 'string' || label.length <= maxLength) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + ' ' + word).trim().length > maxLength && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = word;
+            } else {
+                currentLine = (currentLine + ' ' + word).trim();
+            }
+        });
+        if (currentLine) {
+            lines.push(currentLine.trim());
+        }
+        return lines;
+    };
+    
+    const getCommonTooltipOptions = () => ({
+        callbacks: {
+            title: (tooltipItems) => {
+                if (!tooltipItems || tooltipItems.length === 0) return '';
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(' ') : label;
+            }
+        },
+        titleFont: { family: defaultFontFamily },
+        bodyFont: { family: defaultFontFamily }
+    });
+
+    const createPainPointsChart = () => {
+        const ctx = document.getElementById('painPointsChart');
+        if (!ctx) return;
+
+        const painPointLabels = [
+            '「ツール乱立」と連携不足 (Integration Chaos)',
+            '工数対効果のブラックホール (Effort vs. ROI Black Hole)',
+            '使いにくいUI/UX (Clunky, Unintuitive UI/UX)',
+            '画一的で限定的なカスタマイズ性 (One-Size-Fits-None)',
+            '非効率な候補者検索・フィルタリング (Ineffective Search)'
+        ];
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: painPointLabels.map(label => wrapLabel(label, 25)),
+                datasets: [{
+                    label: 'ペインポイント深刻度スコア (1-10)',
+                    data: [9.5, 9.0, 8.0, 7.5, 7.0],
+                    backgroundColor: [
+                        brandColors.vibrantOrange,
+                        '#f5824c',
+                        '#f7a075',
+                        brandColors.darkerBlue,
+                        brandColors.brightBlue,
+                    ],
+                    borderColor: brandColors.deepBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: getCommonTooltipOptions()
+                },
+                scales: {
+                    x: {
+                        suggestedMax: 10,
+                        title: { display: true, text: '深刻度スコア', color: brandColors.deepBlue, font: { family: defaultFontFamily } },
+                        ticks: { color: brandColors.darkerBlue, font: { family: defaultFontFamily } },
+                        grid: { display: true, color: '#e0e0e0' }
+                    },
+                    y: {
+                        ticks: { color: brandColors.darkerBlue, font: { family: defaultFontFamily, size: 11 } },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    };
+
+    const createPersonaChart = (canvasId, data, colors) => {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.values,
+                    backgroundColor: colors,
+                    hoverOffset: 4,
+                    borderColor: brandColors.offWhite,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: brandColors.deepBlue,
+                            font: { size: 12, family: defaultFontFamily }
+                        }
+                    },
+                    tooltip: getCommonTooltipOptions()
+                }
+            }
+        });
+    };
+    
+    createPainPointsChart();
+
+    createPersonaChart('pragmatistChart', 
+        { labels: ['コスト・時間削減', '採用の質', 'その他'], values: [70, 25, 5] },
+        [brandColors.darkerBlue, brandColors.brightBlue, '#cccccc']
+    );
+
+    createPersonaChart('strategistChart', 
+        { labels: ['採用の質・ブランド', 'コスト・時間', 'その他'], values: [75, 20, 5] },
+        [brandColors.vibrantOrange, brandColors.darkerBlue, '#cccccc']
+    );
+
+});
+</script>
+</body>
+</html>

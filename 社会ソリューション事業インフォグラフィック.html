@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社会ソリューション事業の現状と未来 | 顧客インサイト・インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Infographic Narrative Plan:
+    1.  Hero Section: Hook with the core problem: "The Crisis of Trust".
+    2.  Overall Pain Points: Visualize the severity scores of top pain points across all sectors using an ordered bar chart to show the scale of the problem immediately.
+    3.  The Root Cause "Last Mile Failure": A CSS-based flowchart explaining why high-tech solutions fail at the user level.
+    4.  Deep Dive - Digital Government: Focus on the catastrophic UX of the MyNumber Portal using a donut chart and key stats.
+    5.  Deep Dive - Smart Cities: Illustrate the gap between official promises and citizen fears using a radar chart.
+    6.  Deep Dive - GIGA School: Show the burdens on parents using a stacked bar chart.
+    7.  Citizen's Voice: Display the most common negative phrases in a visually engaging way (simulated word cloud).
+    8.  Opportunities & Actions: Shift to a positive tone, outlining the path forward with clear, actionable steps presented in cards.
+    9.  Conclusion: Summarize the key takeaway - the need to become a trusted ecosystem builder.
+
+    Visualization Choices (NO SVG, NO MERMAID JS):
+    -   Pain Point Ranking: Goal: Compare/Organize. Chosen Viz: Ordered Bar Chart. Justification: Best for comparing multiple categories (pain points) by a quantitative value (severity score). Library: Chart.js (Canvas). NO SVG.
+    -   MyNumber Portal UX Failure: Goal: Inform. Chosen Viz: Donut Chart + Big Numbers. Justification: A donut chart effectively shows a single, stark metric (e.g., negative feedback percentage), and big numbers highlight critical failure points. Library: Chart.js (Canvas). NO SVG.
+    -   Smart City Trust Gap: Goal: Compare/Relationships. Chosen Viz: Radar Chart. Justification: Excellent for comparing multiple quantitative variables (official claims vs. citizen fears) to reveal gaps and imbalances. Library: Chart.js (Canvas). NO SVG.
+    -   GIGA School Burdens: Goal: Compare (Composition). Chosen Viz: Stacked Bar Chart. Justification: Shows how a whole (total burden) is divided into different components (types of burdens). Library: Chart.js (Canvas). NO SVG.
+    -   Last Mile Failure Flowchart: Goal: Organize. Chosen Viz: HTML/CSS Flowchart. Justification: As Mermaid/SVG are forbidden, structured HTML divs with Tailwind CSS (borders, spacing, flexbox) can create a clear, responsive process flow. Method: Custom HTML/CSS. NO SVG.
+    -   Citizen Language Patterns: Goal: Inform. Chosen Viz: HTML/CSS Word Cloud Simulation. Justification: Visually represents qualitative data frequency. Implemented with styled HTML spans to avoid external libraries and SVG. Method: Custom HTML/CSS. NO SVG.
+
+    Color Palette Selection:
+    -   Name: Brilliant Blues (adapted)
+    -   Usage: A professional and vibrant theme.
+        -   Background: #F8F9FA (Off-white)
+        -   Text: #003f5c (Deep Blue)
+        -   Primary Accent: #374c80 (Indigo)
+        -   Secondary Accent: #7a5195 (Purple)
+        -   Highlight/Negative: #ef5675 (Pink-Red)
+        -   Warning/Action: #ff764a (Orange)
+        -   Positive/Success: #00a676 (Green - custom addition for balance)
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #F8F9FA;
+            color: #003f5c;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #7a5195, #ef5675, #ff764a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .flowchart-step {
+            border: 2px solid #374c80;
+            background-color: white;
+            color: #374c80;
+            transition: all 0.3s ease;
+        }
+        .flowchart-step:hover {
+            background-color: #374c80;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .flowchart-arrow {
+            color: #7a5195;
+        }
+        .word-cloud-item {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 8px;
+            margin: 4px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="text-center py-12 px-4 bg-white shadow-lg">
+        <h1 class="text-4xl md:text-6xl font-black mb-4">
+            <span class="gradient-text">信頼の危機</span>
+        </h1>
+        <h2 class="text-xl md:text-2xl font-bold text-[#003f5c] max-w-4xl mx-auto">社会ソリューション事業、その理想と厳しい現実</h2>
+        <p class="text-lg text-[#374c80] mt-4 max-w-3xl mx-auto">
+            最新の顧客インテリジェンス分析から、日本の社会ソリューションが直面する核心的課題が明らかになりました。本インフォグラフィックは、市民の「生の声」に基づき、事業の現状を可視化し、未来への道を照らします。
+        </p>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <section id="painpoints" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">最も深刻な市民のペインポイント</h2>
+                <p class="max-w-3xl mx-auto text-lg text-[#374c80]">分野を問わず、市民は生命、信頼、日々の生活に関わる深刻な問題に直面しています。特に「ラストマイル」での情報伝達の失敗は、致命的なレベルに達しています。</p>
+            </div>
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-xl">
+                <div class="chart-container" style="height: 600px; max-height: 80vh;">
+                    <canvas id="painPointChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-[#7a5195] text-sm">データソース: オンラインコミュニティにおける言及頻度、感情強度、影響度を総合した深刻度スコア (10段階評価)</p>
+            </div>
+        </section>
+
+        <section id="root-cause" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">根本原因：「ラストマイル」の失敗</h2>
+                <p class="max-w-3xl mx-auto text-lg text-[#374c80]">なぜ高度な技術が市民に届かないのか？問題は、計画から実行までのプロセスが、最終利用者である「人」を無視していることにあります。</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-xl">
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="flowchart-step w-full md:w-3/4 lg:w-1/2 text-center p-4 rounded-xl">
+                        <h3 class="font-bold text-xl">高度な技術と理想的な計画</h3>
+                        <p class="text-sm">「AI」「IoT」「ワンストップ」等の理想を掲げる</p>
+                    </div>
+                    <div class="text-4xl font-black flowchart-arrow">▼</div>
+                    <div class="flowchart-step w-full md:w-3/4 lg:w-1/2 text-center p-4 rounded-xl">
+                        <h3 class="font-bold text-xl">トップダウンでの導入・実行</h3>
+                        <p class="text-sm">現場の意見や利用者の文脈を十分に考慮しない</p>
+                    </div>
+                    <div class="text-4xl font-black flowchart-arrow">▼</div>
+                    <div class="bg-[#ef5675] text-white p-6 rounded-2xl w-full md:w-3/4 lg:w-1/2 text-center shadow-2xl scale-105">
+                        <h3 class="font-black text-2xl">ラストマイルでの破綻</h3>
+                        <p class="mt-2 font-semibold">最終的な利用者との接点での失敗</p>
+                        <ul class="text-left mt-4 list-disc list-inside space-y-1">
+                            <li>壊滅的なUI/UX</li>
+                            <li>不十分なサポート体制</li>
+                            <li>現実の利用状況との乖離</li>
+                        </ul>
+                    </div>
+                    <div class="text-4xl font-black flowchart-arrow">▼</div>
+                     <div class="flowchart-step w-full md:w-3/4 lg:w-1/2 text-center p-4 rounded-xl">
+                        <h3 class="font-bold text-xl">市民の不満・不信・無関心</h3>
+                        <p class="text-sm">「税金の無駄」「結局使えない」という評価に繋がる</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-20">
+            <div id="digital-gov" class="bg-white p-8 rounded-2xl shadow-xl flex flex-col">
+                <div class="text-center">
+                    <h3 class="text-2xl md:text-3xl font-extrabold mb-2">デジタルガバメントの象徴的失敗</h3>
+                    <p class="text-lg text-[#374c80] mb-6">「マイナポータル」は、国民の信頼を蝕む最大の要因となっています。</p>
+                </div>
+                <div class="chart-container mx-auto flex-grow" style="height: 300px; max-height: 40vh;">
+                    <canvas id="mynaportalChart"></canvas>
+                </div>
+                <div class="mt-6 text-center">
+                     <p class="text-5xl font-black text-[#ef5675]">9.5</p>
+                     <p class="font-bold text-[#7a5195]">壊滅的なUI/UXの深刻度スコア</p>
+                     <p class="text-sm text-[#374c80] mt-2">「自分が何をしているかわからない」という声が多数。</p>
+                </div>
+            </div>
+
+            <div id="smart-city" class="bg-white p-8 rounded-2xl shadow-xl flex flex-col">
+                <div class="text-center">
+                    <h3 class="text-2xl md:text-3xl font-extrabold mb-2">スマートシティの信頼格差</h3>
+                    <p class="text-lg text-[#374c80] mb-6">推進側の「利便性」という主張と、市民の「監視」への恐怖が乖離。</p>
+                </div>
+                <div class="chart-container mx-auto flex-grow" style="height: 300px; max-height: 40vh;">
+                    <canvas id="smartCityChart"></canvas>
+                </div>
+                 <div class="mt-6 text-center">
+                     <p class="text-5xl font-black text-[#ef5675]">9.8</p>
+                     <p class="font-bold text-[#7a5195]">プライバシー侵害への恐怖スコア</p>
+                     <p class="text-sm text-[#374c80] mt-2">「気持ち悪い」という直感的な拒絶反応が強い。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="giga-school" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">GIGAスクール構想の影</h2>
+                <p class="max-w-3xl mx-auto text-lg text-[#374c80]">ハードウェアの導入を急ぐ裏で、最大の実行者である保護者と教員に過重な負担がのしかかっています。</p>
+            </div>
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-xl">
+                <div class="chart-container" style="height: 450px; max-height: 60vh;">
+                    <canvas id="gigaSchoolChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-[#7a5195] text-sm">GIGAスクール端末に起因する保護者の負担の内訳（概念図）</p>
+            </div>
+        </section>
+
+        <section id="customer-language" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">市民の「生の声」</h2>
+                <p class="max-w-3xl mx-auto text-lg text-[#374c80]">オンラインで頻繁に使われるこれらの言葉は、彼らの不満と本質的な要求を映し出しています。</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+                <div id="word-cloud" class="flex flex-wrap justify-center items-center gap-4">
+                </div>
+            </div>
+        </section>
+
+        <section id="opportunities" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">危機から機会へ：未来へのアクション</h2>
+                <p class="max-w-3xl mx-auto text-lg text-[#374c80]">ペインポイントは、裏を返せば巨大な事業機会です。市民の信頼を勝ち取るための3つの戦略的転換を提案します。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="text-6xl font-black text-[#ff764a] mb-4">1</div>
+                    <h3 class="text-2xl font-bold mb-4">「ラストマイル」をサービス化する</h3>
+                    <p class="text-[#374c80]">技術を売り切るのではなく、使いこなすためのサポート（強力なペアレンタルコントロール、専門オペレーターによる支援）を新たな収益源とします。</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="text-6xl font-black text-[#ff764a] mb-4">2</div>
+                    <h3 class="text-2xl font-bold mb-4">「信頼」を製品のコア機能にする</h3>
+                    <p class="text-[#374c80]">プライバシー保護と透明性を技術的な優位性として設計し、「安心」を最大の付加価値として訴求。競合との明確な差別化を図ります。</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <div class="text-6xl font-black text-[#ff764a] mb-4">3</div>
+                    <h3 class="text-2xl font-bold mb-4">エコシステムの構築者になる</h3>
+                    <p class="text-[#374c80]">サイロ化したサービスを繋ぐオープンな連携基盤を提供。他社を成功させる「舞台」を創り、市場全体のリーダーシップを確立します。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#003f5c] text-white text-center p-8">
+        <h3 class="text-2xl font-bold">結論：信頼されるエコシステム・イネーブラーへ</h3>
+        <p class="max-w-3xl mx-auto mt-4">
+            個別のソリューションを提供する時代は終わりました。今求められているのは、多様な主体を繋ぎ、市民一人ひとりの課題に寄り添い、社会全体を機能させる「信頼できるイネーブラー」としての役割です。
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const colors = {
+                deepBlue: '#003f5c',
+                indigo: '#374c80',
+                purple: '#7a5195',
+                pinkRed: '#ef5675',
+                orange: '#ff764a',
+                yellow: '#ffa600',
+                white: '#FFFFFF',
+                green: '#00a676'
+            };
+
+            const defaultFont = {
+                family: 'Inter, "Noto Sans JP", sans-serif',
+                size: 14
+            };
+
+            Chart.defaults.font.family = defaultFont.family;
+            Chart.defaults.color = colors.deepBlue;
+
+            function wrapLabels(label, maxWidth) {
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if (currentLine.length + words[i].length + 1 < maxWidth) {
+                        currentLine += ' ' + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+            
+            const requiredTooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            
+            function createPainPointChart() {
+                const ctx = document.getElementById('painPointChart').getContext('2d');
+                const rawLabels = [
+                    '防災無線が聞こえないという情報伝達の失敗',
+                    'プライバシー侵害と「監視社会」への恐怖',
+                    '壊滅的なUI/UXとナビゲーションの欠如',
+                    'サイバー攻撃による都市機能停止リスク',
+                    '家庭でのGIGA端末管理の負担 (親子関係悪化)',
+                    '頻繁なログイン要求と認証エラー',
+                    '避難所における非人道的な環境',
+                    '診療の質への不安（触診・検査不可）',
+                    'MaaSアプリの乱立と相互運用性の欠如',
+                    '住民不在の地域活性化プロジェクト'
+                ];
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: rawLabels.map(label => wrapLabels(label, 20)),
+                        datasets: [{
+                            label: '深刻度スコア',
+                            data: [10.0, 9.8, 9.5, 9.2, 9.3, 9.0, 9.0, 8.8, 8.7, 8.5],
+                            backgroundColor: [
+                                colors.pinkRed,
+                                colors.pinkRed,
+                                colors.pinkRed,
+                                colors.orange,
+                                colors.orange,
+                                colors.orange,
+                                colors.yellow,
+                                colors.yellow,
+                                colors.yellow,
+                                colors.yellow,
+                            ],
+                            borderColor: colors.white,
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        ...requiredTooltipCallback,
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            ...requiredTooltipCallback.plugins,
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: '市民のペインポイント深刻度ランキング',
+                                font: { size: 18, weight: 'bold' },
+                                padding: { top: 10, bottom: 20 }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    display: true,
+                                    color: '#e0e0e0'
+                                },
+                                ticks: {
+                                    font: { weight: 'bold' }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    font: { size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createMynaportalChart() {
+                const ctx = document.getElementById('mynaportalChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['極めて使いにくい・問題あり', '利用可能'],
+                        datasets: [{
+                            data: [85, 15],
+                            backgroundColor: [colors.pinkRed, colors.indigo],
+                            borderColor: colors.white,
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: {
+                        ...requiredTooltipCallback,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                             ...requiredTooltipCallback.plugins,
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'オンライン評価に見るUXの実態（概念図）',
+                                font: { size: 16 },
+                                padding: { bottom: 15 }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createSmartCityChart() {
+                const ctx = document.getElementById('smartCityChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['効率性', '安全性', '利便性', 'プライバシー', 'コスト透明性', '市民の自由'],
+                        datasets: [{
+                            label: '推進側の主張',
+                            data: [9, 8, 8, 4, 3, 5],
+                            backgroundColor: 'rgba(55, 76, 128, 0.2)',
+                            borderColor: colors.indigo,
+                            pointBackgroundColor: colors.indigo,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: colors.indigo
+                        }, {
+                            label: '市民の懸念',
+                            data: [5, 4, 5, 10, 9, 10],
+                            backgroundColor: 'rgba(239, 86, 117, 0.2)',
+                            borderColor: colors.pinkRed,
+                            pointBackgroundColor: colors.pinkRed,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: colors.pinkRed
+                        }]
+                    },
+                    options: {
+                        ...requiredTooltipCallback,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 10,
+                                pointLabels: {
+                                    font: { size: 12 }
+                                }
+                            }
+                        },
+                        plugins: {
+                            ...requiredTooltipCallback.plugins,
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function createGigaSchoolChart() {
+                const ctx = document.getElementById('gigaSchoolChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['教員', '保護者', '自治体職員'],
+                        datasets: [
+                            {
+                                label: '時間管理・生活指導',
+                                data: [30, 50, 10],
+                                backgroundColor: colors.orange,
+                            },
+                            {
+                                label: '技術サポート・故障対応',
+                                data: [40, 30, 50],
+                                backgroundColor: colors.purple,
+                            },
+                            {
+                                label: '費用負担・精神的ストレス',
+                                data: [15, 60, 5],
+                                backgroundColor: colors.pinkRed,
+                            }
+                        ]
+                    },
+                    options: {
+                        ...requiredTooltipCallback,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { stacked: true, grid: { display: false } },
+                            y: { stacked: true, grid: { color: '#e0e0e0' } }
+                        },
+                        plugins: {
+                            ...requiredTooltipCallback.plugins,
+                            title: {
+                                display: true,
+                                text: 'GIGAスクール関連の負担配分',
+                                font: { size: 18, weight: 'bold' },
+                                padding: { top: 10, bottom: 20 }
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createWordCloud() {
+                const container = document.getElementById('word-cloud');
+                const words = [
+                    { text: '聞こえない', size: 'text-5xl', color: 'bg-pink-100', textColor: 'text-pink-800' },
+                    { text: '気持ち悪い', size: 'text-4xl', color: 'bg-purple-100', textColor: 'text-purple-800' },
+                    { text: '結局来庁', size: 'text-3xl', color: 'bg-orange-100', textColor: 'text-orange-800' },
+                    { text: '家庭への丸投げ', size: 'text-4xl', color: 'bg-red-100', textColor: 'text-red-800' },
+                    { text: '使いにくい', size: 'text-5xl', color: 'bg-blue-100', textColor: 'text-blue-800' },
+                    { text: '税金の無駄', size: 'text-4xl', color: 'bg-gray-200', textColor: 'text-gray-800' },
+                    { text: '分かりにくい', size: 'text-3xl', color: 'bg-blue-100', textColor: 'text-blue-800' },
+                    { text: '重い', size: 'text-2xl', color: 'bg-green-100', textColor: 'text-green-800' },
+                    { text: '親の負担', size: 'text-3xl', color: 'bg-red-100', textColor: 'text-red-800' }
+                ];
+
+                words.sort(() => Math.random() - 0.5);
+
+                words.forEach(word => {
+                    const span = document.createElement('span');
+                    span.textContent = word.text;
+                    span.className = `word-cloud-item ${word.size} ${word.color} ${word.textColor}`;
+                    container.appendChild(span);
+                });
+            }
+
+            createPainPointChart();
+            createMynaportalChart();
+            createSmartCityChart();
+            createGigaSchoolChart();
+            createWordCloud();
+        });
+    </script>
+</body>
+</html>

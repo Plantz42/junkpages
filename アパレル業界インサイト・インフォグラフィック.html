@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPAアパレル業界 顧客インサイト・インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#F9F4F0] text-[#333333]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-8 md:my-16">
+            <h1 class="text-4xl md:text-6xl font-black text-[#1A2E40] tracking-tighter">アパレル顧客の声が示す、次なる戦場</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-[#4F6478]">消費者は「価格、品質、倫理」の狭間で揺れ動いている。オンライン上の膨大なデータから、SPAアパレル業界が直面する真の課題と機会を読み解く。</p>
+        </header>
+
+        <main class="space-y-16 md:space-y-24">
+
+            <section id="pain-points" class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-center mb-2 text-[#1A2E40]">顧客の「痛み」ランキング TOP 8</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">オンライン上の議論を分析した結果、顧客が最も深刻だと感じている問題点が明らかになりました。スコアが高いほど、問題の深刻度（言及頻度、感情の強度、影響度の総合評価）が高いことを示します。</p>
+                <div class="chart-container h-[500px] md:h-[600px] max-h-[700px] w-full max-w-4xl">
+                    <canvas id="painPointsChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 mt-4 text-center">出典：オンラインコミュニティ、SNS、レビューサイトの過去12ヶ月間の投稿分析</p>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center text-[#1A2E40]">ブランドポジショニングの現実</h3>
+                    <p class="text-center text-gray-600 my-4">顧客は各ブランドを「価格」「品質」「トレンド」「倫理」の4軸でどのように認識しているのでしょうか。理想と現実のギャップがここにあります。</p>
+                    <div class="chart-container h-[350px] md:h-[400px]">
+                        <canvas id="brandRadarChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-center text-[#1A2E40]">信頼の危機：Greenwashingへの懐疑</h3>
+                    <p class="text-center text-gray-600 my-4">企業のサステナビリティ活動は、顧客に届いているのでしょうか。多くの消費者が、その言葉の裏にある実態を厳しく見つめています。</p>
+                     <div class="flex flex-col items-center justify-center h-full">
+                        <div class="text-7xl font-black text-[#EF5B5B]">79%</div>
+                        <p class="text-xl font-bold text-gray-700 mt-2">の倫理重視層が企業のエコ活動に不信感</p>
+                        <p class="mt-4 text-center text-gray-600">「大量生産のビジネスモデルは変わらないのに、サステナブルを語るのは矛盾している」という声が多数。信頼の再構築が急務です。</p>
+                        <div class="w-full bg-gray-200 rounded-full h-4 mt-6">
+                           <div class="bg-[#EF5B5B] h-4 rounded-full" style="width: 79%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="digital-experience" class="bg-[#1A2E40] text-white rounded-2xl shadow-lg p-6 md:p-10">
+                <h2 class="text-3xl font-bold text-center mb-8">デジタル体験の巨大な壁</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#4F6478] rounded-xl p-6 text-center">
+                        <h3 class="text-2xl font-bold">ZARAの「サイジング・ルーレット」</h3>
+                         <div class="text-8xl font-black my-4 text-[#F9A620]">🎲</div>
+                        <p class="text-lg">「商品ごとにサイズ感が違いすぎて、オンライン購入はギャンブル」という声が殺到。返品の手間とコストが顧客を遠ざける最大の要因となっています。</p>
+                        <p class="mt-4 font-bold text-xl">ペインポイント深刻度: <span class="text-[#F9A620]">8.5 / 10</span></p>
+                    </div>
+                    <div class="bg-[#4F6478] rounded-xl p-6 text-center">
+                        <h3 class="text-2xl font-bold">H&Mアプリの「機能不全」</h3>
+                         <div class="text-8xl font-black my-4 text-[#EF5B5B]">📱💥</div>
+                        <p class="text-lg">「使いにくい」「レビューが見られない」「イライラする」など、アプリの劣悪なUXが主要な顧客接点での機会損失を招いています。</p>
+                         <p class="mt-4 font-bold text-xl">ペインポイント深刻度: <span class="text-[#EF5B5B]">7.5 / 10</span></p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="alternatives">
+                <h2 class="text-3xl font-bold text-center mb-2 text-[#1A2E40]">「ファストファッション卒業」という潮流</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">品質への不満や倫理的な罪悪感から、消費者は新たな選択肢を模索しています。古着やレンタルサービスへの関心は、単なるトレンドではなく、価値観の変化を示唆しています。</p>
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <div class="chart-container h-[350px] md:h-[400px] w-full max-w-4xl">
+                         <canvas id="alternativesChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="opportunities">
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#1A2E40]">未来への機会とアクション</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold mb-2 text-[#1A2E40]">信頼の再構築</h3>
+                        <p class="text-gray-600">検証可能な透明性（サプライチェーンの可視化、安全性データ公開）で「グリーンウォッシング」批判を乗り越える。</p>
+                    </div>
+                     <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">🎯</div>
+                        <h3 class="text-xl font-bold mb-2 text-[#1A2E40]">サイジング問題の解決</h3>
+                        <p class="text-gray-600">AIを活用した高精度なサイズ提案ツールへ投資し、オンライン購入の最大の障壁を解消する。</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">💎</div>
+                        <h3 class="text-xl font-bold mb-2 text-[#1A2E40]">品質価値の再定義</h3>
+                        <p class="text-gray-600">「長く使える」という耐久性や資産価値を訴求し、価格競争から脱却する。（特にユニクロ）</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">♻️</div>
+                        <h3 class="text-xl font-bold mb-2 text-[#1A2E40]">エコシステムの構築</h3>
+                        <p class="text-gray-600">公式リセール（再販）やレンタルサービスを導入し、「卒業」する顧客を自社経済圏に留める。</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 md:mt-24 py-8 border-t border-gray-300">
+            <p class="text-gray-500">本インフォグラフィックは、公開されているオンラインデータを基に作成された分析レポートを視覚化したものです。</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const vibrantCaptivating = {
+            deepBlue: '#1A2E40',
+            teal: '#008080',
+            coral: '#EF5B5B',
+            yellow: '#F9A620',
+            cream: '#F9F4F0',
+            lightBlue: '#4F6478',
+            grey: '#A9A9A9'
+        };
+
+        const tooltipPlugin = {
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleFont: {
+                    size: 16,
+                    weight: 'bold'
+                },
+                bodyFont: {
+                    size: 14
+                },
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+        
+        function wrapLabel(str, maxWidth) {
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + ' ' + words[i]).length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += ' ' + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const painPointsData = {
+            labels: [
+                'SHEIN：製品の安全性と健康への不安',
+                'ZARA：サイジング・ルーレットとオンライン購入の困難さ',
+                '全般：大量生産・大量廃棄と労働問題への倫理的罪悪感',
+                'H&M, ZARA：「グリーンウォッシング」への強い不信感と冷笑',
+                'H&M：アプリの劣悪なUI/UXと機能不全',
+                'ユニクロ, GU：品質低下への懸念と耐久性への不満',
+                'SHEIN, Temu：配送の遅延・不着と不十分な梱包',
+                'オンライン全般：返品・交換プロセスの煩雑さ'
+            ],
+            scores: [9.8, 8.5, 8.2, 7.9, 7.5, 7.2, 6.8, 6.5]
+        };
+
+        const painPointsChartCtx = document.getElementById('painPointsChart').getContext('2d');
+        new Chart(painPointsChartCtx, {
+            type: 'bar',
+            data: {
+                labels: painPointsData.labels.map(label => wrapLabel(label, 16)),
+                datasets: [{
+                    label: '深刻度スコア (1-10)',
+                    data: painPointsData.scores,
+                    backgroundColor: [
+                        vibrantCaptivating.coral,
+                        vibrantCaptivating.coral,
+                        vibrantCaptivating.yellow,
+                        vibrantCaptivating.yellow,
+                        vibrantCaptivating.yellow,
+                        vibrantCaptivating.lightBlue,
+                        vibrantCaptivating.lightBlue,
+                        vibrantCaptivating.grey
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 10,
+                        grid: {
+                            color: '#e0e0e0',
+                            borderColor: '#cccccc'
+                        },
+                        ticks: {
+                           font: {
+                               size: 14,
+                               weight: 'bold'
+                           },
+                           color: vibrantCaptivating.deepBlue
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                         ticks: {
+                           font: {
+                               size: 14,
+                               weight: 'bold'
+                           },
+                           color: vibrantCaptivating.deepBlue
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    ...tooltipPlugin
+                }
+            }
+        });
+
+        const brandRadarChartCtx = document.getElementById('brandRadarChart').getContext('2d');
+        new Chart(brandRadarChartCtx, {
+            type: 'radar',
+            data: {
+                labels: ['価格', '品質', 'トレンド', '倫理'],
+                datasets: [
+                    {
+                        label: 'ユニクロ',
+                        data: [7, 9, 6, 7],
+                        backgroundColor: 'rgba(0, 128, 128, 0.2)',
+                        borderColor: vibrantCaptivating.teal,
+                        pointBackgroundColor: vibrantCaptivating.teal,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'ZARA',
+                        data: [5, 6, 9, 4],
+                         backgroundColor: 'rgba(239, 91, 91, 0.2)',
+                        borderColor: vibrantCaptivating.coral,
+                        pointBackgroundColor: vibrantCaptivating.coral,
+                        borderWidth: 2
+                    },
+                     {
+                        label: 'GU',
+                        data: [9, 5, 8, 5],
+                         backgroundColor: 'rgba(249, 166, 32, 0.2)',
+                        borderColor: vibrantCaptivating.yellow,
+                        pointBackgroundColor: vibrantCaptivating.yellow,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'SHEIN',
+                        data: [10, 2, 9, 1],
+                        backgroundColor: 'rgba(169, 169, 169, 0.2)',
+                        borderColor: vibrantCaptivating.grey,
+                        pointBackgroundColor: vibrantCaptivating.grey,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: '#dddddd'
+                        },
+                        grid: {
+                            color: '#e0e0e0'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                             color: vibrantCaptivating.deepBlue
+                        },
+                        ticks: {
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
+                            stepSize: 2
+                        },
+                        min: 0,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    ...tooltipPlugin
+                }
+            }
+        });
+        
+        const alternativesChartCtx = document.getElementById('alternativesChart').getContext('2d');
+        new Chart(alternativesChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['3年前', '2年前', '1年前', '現在', '未来予測'],
+                datasets: [{
+                    label: '古着/ヴィンテージへの関心',
+                    data: [30, 45, 60, 75, 85],
+                    borderColor: vibrantCaptivating.teal,
+                    backgroundColor: 'rgba(0, 128, 128, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'ファッションレンタルへの関心',
+                    data: [10, 15, 25, 35, 50],
+                    borderColor: vibrantCaptivating.yellow,
+                     backgroundColor: 'rgba(249, 166, 32, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'ファストファッション新規購入意欲',
+                    data: [80, 75, 70, 68, 65],
+                     borderColor: vibrantCaptivating.coral,
+                     backgroundColor: 'rgba(239, 91, 91, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                     x: {
+                        grid: {
+                            display: false
+                        },
+                         ticks: {
+                           color: vibrantCaptivating.deepBlue
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: '#e0e0e0'
+                        },
+                         ticks: {
+                           color: vibrantCaptivating.deepBlue,
+                           callback: function(value) {
+                                return value + '%'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                     legend: {
+                        position: 'top',
+                         labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    ...tooltipPlugin
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
